@@ -10,7 +10,7 @@ pygame.font.init()
 my_font = pygame.font.SysFont("Arial", 20)
 size = (900, 675)
 screen = pygame.display.set_mode(size)
-player_image = pygame.image.load("Jump_king.webp")
+player_image = pygame.image.load("Jump_king.webp").convert_alpha()
 player_x = 450 - player_image.get_width() * 0.4 / 2
 player_y = 575 - player_image.get_height() * 0.4 / 2
 player = Player(player_x, player_y)
@@ -68,7 +68,7 @@ class World:
 def playing(current_level):
     play = True
     while play:
-        fps = 150
+        fps = 300
         clock = pygame.time.Clock()
         clock.tick(fps)
         if current_level == 1:
@@ -104,14 +104,13 @@ def playing(current_level):
             current_level -= 1
 
         # SHOWING STUFF ON THE SCREEN
-        screen.fill((255, 255, 255))
+        screen.fill((0, 0, 0))
         world.draw()
-        # screen.blit(current_bg, (0, 0))
+        screen.blit(current_bg, (0, 0))
         if player.direction:
             screen.blit(player.image, (player.rect.x - 5, player.rect.y))
         else:
             screen.blit(player.face_left, (player.rect.x - 5, player.rect.y))
-        pygame.draw.rect(screen, (255, 255, 255), player.rect, 2)
         pygame.display.update()
 
 
