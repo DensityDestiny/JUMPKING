@@ -10,8 +10,11 @@ class Player:
         self.direction = True
         self.x = x
         self.y = y
-        self.image_list = ["Jump_king.webp"]
+        self.image_list = ["Jump_king.webp", "squat.png"]
         self.image = pygame.image.load(self.image_list[0])
+        self.idle = pygame.image.load(self.image_list[0])
+        self.squat = pygame.image.load(self.image_list[1])
+        self.image_list = [self.idle, self.squat]
         self.rescale_image()
         self.face_left = pygame.transform.flip(self.image, True, False)
         self.image_size = self.image.get_size()
@@ -34,6 +37,7 @@ class Player:
         keys = pygame.key.get_pressed()
         if self.grounded:
             if not keys[pygame.K_SPACE]:
+                self.image = self.idle
                 if keys[pygame.K_LEFT]:
                     self.dx = -3
                     self.direction = False
@@ -43,6 +47,7 @@ class Player:
                 else:
                     self.dx = 0
             else:
+                self.image = self.squat
                 self.dx = 0
                 if self.jump_power > -12.5:
                     self.jump_power -= 0.5
