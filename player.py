@@ -10,15 +10,16 @@ class Player:
         self.direction = True
         self.x = x
         self.y = y
-        self.image_list = ["Jump_king.webp", "squat.png"]
+        self.image_list = ["idle.png", "squat.png", "fall.png"]
         self.image = pygame.image.load(self.image_list[0])
         self.idle = pygame.image.load(self.image_list[0])
         self.squat = pygame.image.load(self.image_list[1])
+        self.fall = pygame.image.load(self.image_list[2])
         self.image_list = [self.idle, self.squat]
-        self.rescale_image()
+        self.image = self.rescale_image(self.image)
         self.face_left = pygame.transform.flip(self.image, True, False)
         self.image_size = self.image.get_size()
-        self.rect = pygame.Rect(self.x, self.y, self.image_size[0] - 10, self.image_size[1])
+        self.rect = pygame.Rect(self.x, self.y, 50 - 10, 53)
         self.delta = 2
         self.image_idx = 0
         self.mask = pygame.mask.from_surface(self.image)
@@ -26,10 +27,11 @@ class Player:
         self.y_velocity = 0
         self.jump_power = 0
 
-    def rescale_image(self):
-        self.image_size = self.image.get_size()
-        scale_size = (self.image_size[0] * 0.36, self.image_size[1] * 0.36)
+    def rescale_image(self, image):
+        self.image_size = image.get_size()
+        scale_size = (self.image_size[0] * 0.75, self.image_size[1] * 0.75)
         self.image = pygame.transform.scale(self.image, scale_size)
+        return self.image
 
     def update(self, world, events):
         dy = 0
@@ -38,6 +40,8 @@ class Player:
         if self.grounded:
             if not keys[pygame.K_SPACE]:
                 self.image = self.idle
+                self.image = self.rescale_image(self.idle)
+                self.face_left = pygame.transform.flip(self.image, True, False)
                 if keys[pygame.K_LEFT]:
                     self.dx = -3
                     self.direction = False
@@ -48,6 +52,8 @@ class Player:
                     self.dx = 0
             else:
                 self.image = self.squat
+                self.image = self.rescale_image(self.squat)
+                self.face_left = pygame.transform.flip(self.image, True, False)
                 self.dx = 0
                 if self.jump_power > -12.5:
                     self.jump_power -= 0.5
@@ -67,6 +73,7 @@ class Player:
                 self.y_vel_gravity += 0.0030
             self.y_velocity += self.y_vel_gravity
         dy += self.y_velocity
+
         self.ground_check = False
         for tile in world.tile_list:
             if tile[1].colliderect(self.rect.x + self.dx, self.rect.y, self.rect.width, self.rect.height) and tile[2] == "block":
@@ -102,5 +109,9 @@ class Player:
         else:
             self.grounded = True
             self.y_vel_gravity = 0.36
+        if dy < -3:
+            self.image = self.fall
+            self.image = self.rescale_image(self.fall)
+            self.face_left = pygame.transform.flip(self.image, True, False)
         self.rect.x += self.dx
         self.rect.y += dy
