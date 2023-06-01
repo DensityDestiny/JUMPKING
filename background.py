@@ -7,7 +7,7 @@ class Background:
         self.returned_image = []
         # for i in range(len(self.image_list)):
         self.image = pygame.image.load(self.image_list[0]).convert_alpha()
-        # self.image.set_alpha(100)
+        self.image.set_alpha(100)
         self.rescale_image()
         self.image_size = self.image.get_size()
         self.returned_image.append(self.image)
