@@ -18,7 +18,9 @@ image1 = Background("1.png")
 image2 = Background("2.png")
 image3 = Background("3.png")
 image4 = Background("4.png")
-image5 = Background("4.png")
+image5 = Background("5.png")
+image6 = Background("6.png")
+image7 = Background("7.png")  # work on this
 world_information = World_information()
 
 
@@ -84,6 +86,15 @@ def playing(current_level):
         if current_level == 4:
             world_data = world_information.world4
             current_bg = image4.image
+        if current_level == 5:
+            world_data = world_information.world5
+            current_bg = image5.image
+        if current_level == 6:
+            world_data = world_information.world6
+            current_bg = image6.image
+        if current_level == 7:
+            world_data = world_information.world7
+            current_bg = image7.image
 
         world = World(world_data)
 
@@ -105,7 +116,7 @@ def playing(current_level):
             current_level -= 1
 
         # SHOWING STUFF ON THE SCREEN
-        screen.fill((0, 0, 0))
+        screen.fill((255, 255, 255))
         world.draw()
         screen.blit(current_bg, (0, 0))
         if player.direction:
@@ -115,4 +126,4 @@ def playing(current_level):
         pygame.display.update()
 
 
-playing(4)
+playing(7)
