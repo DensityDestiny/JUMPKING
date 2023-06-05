@@ -144,14 +144,14 @@ class Player:
                 y_expected = 20 - x_distance
                 if 0 < x_distance < 20 and y_expected > y_distance > -10:
                     self.dx = (self.dx + dy) / 2
-                    dy = (self.dx + dy) / 2
+                    dy = ((self.dx + dy) / 2) - 1
             if tile[2] == "left":
                 x_distance = tile[1].right - self.rect.right
                 y_distance = tile[1].bottom - self.rect.bottom
                 y_expected = 20 - x_distance
                 if 0 < x_distance < 20 and y_expected > y_distance > -10:
                     self.dx = (self.dx - dy) / 2
-                    dy = (-self.dx + dy) / 2
+                    dy = ((-self.dx + dy) / 2) - 1
 
         if not self.ground_check:
             self.grounded = False

@@ -21,6 +21,16 @@ image4 = Background("4.png")
 image5 = Background("5.png")
 image6 = Background("6.png")
 image7 = Background("7.png")  # work on this
+image8 = Background("8.png")
+image9 = Background("9.png")
+image10 = Background("10.png")
+image11 = Background("11.png")
+# image12 = Background("12.png")
+# image13 = Background("13.png")
+# image14 = Background("14.png")
+# image15 = Background("15.png")
+
+
 world_information = World_information()
 
 
@@ -71,7 +81,7 @@ class World:
 def playing(current_level):
     play = True
     while play:
-        fps = 150
+        fps = 300
         clock = pygame.time.Clock()
         clock.tick(fps)
         if current_level == 1:
@@ -95,24 +105,38 @@ def playing(current_level):
         if current_level == 7:
             world_data = world_information.world7
             current_bg = image7.image
-
+        if current_level == 8:
+            world_data = world_information.world8
+            current_bg = image8.image
+        if current_level == 9:
+            world_data = world_information.world9
+            current_bg = image9.image
+        if current_level == 10:
+            world_data = world_information.world10
+            current_bg = image10.image
+        if current_level == 11:
+            world_data = world_information.world11
+            current_bg = image11.image
         world = World(world_data)
-
         # DOING THE STUFF IN GAME
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
                 play = False
+        for event in events:
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_1:
+                    current_level += 1
 
         # MOVEMENT
         player.update(world, events)
 
         # SWITCHING LEVELS AND CHECKING IF ON SCREEN
         if player.rect.y < 0:
-            player.rect.y += size[1] - 10
+            player.rect.y += size[1] - 5
             current_level += 1
         if player.rect.y > size[1] - 20 and current_level != 1:
-            player.rect.y -= size[1] - 10
+            player.rect.y -= size[1] - 5
             current_level -= 1
 
         # SHOWING STUFF ON THE SCREEN
@@ -126,4 +150,4 @@ def playing(current_level):
         pygame.display.update()
 
 
-playing(7)
+playing(1)
