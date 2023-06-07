@@ -25,9 +25,9 @@ image8 = Background("8.png")
 image9 = Background("9.png")
 image10 = Background("10.png")
 image11 = Background("11.png")
-# image12 = Background("12.png")
-# image13 = Background("13.png")
-# image14 = Background("14.png")
+image12 = Background("12.png")
+image13 = Background("13.png")
+image14 = Background("14.png")
 # image15 = Background("15.png")
 
 
@@ -80,6 +80,7 @@ class World:
 
 def playing(current_level):
     play = True
+    testing = input("Are you testing? y for yes if you dont want a character")
     while play:
         fps = 300
         clock = pygame.time.Clock()
@@ -117,37 +118,68 @@ def playing(current_level):
         if current_level == 11:
             world_data = world_information.world11
             current_bg = image11.image
+        if current_level == 12:
+            world_data = world_information.world12
+            current_bg = image12.image
+        if current_level == 13:
+            world_data = world_information.world13
+            current_bg = image13.image
+        if current_level == 14:
+            world_data = world_information.world14
+            current_bg = image14.image
         world = World(world_data)
         # DOING THE STUFF IN GAME
         events = pygame.event.get()
+        mouse = pygame.mouse.get_pos()
+        testing_list = world_information.world14
         for event in events:
             if event.type == pygame.QUIT:
+                print(testing_list)
                 play = False
         for event in events:
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_1:
+                if event.key == pygame.K_q:
                     current_level += 1
+                if event.key == pygame.K_1:
+                    x_pos = mouse[0] // 15
+                    y_pos = mouse[1] // 15
+                    testing_list[y_pos][x_pos] = 1
+                if event.key == pygame.K_2:
+                    x_pos = mouse[0] // 15
+                    y_pos = mouse[1] // 15
+                    testing_list[y_pos][x_pos] = 2
+                if event.key == pygame.K_3:
+                    x_pos = mouse[0] // 15
+                    y_pos = mouse[1] // 15
+                    testing_list[y_pos][x_pos] = 3
+                if event.key == pygame.K_4:
+                    x_pos = mouse[0] // 15
+                    y_pos = mouse[1] // 15
+                    testing_list[y_pos][x_pos] = 0
+
 
         # MOVEMENT
-        player.update(world, events)
+        if not testing:
+            player.update(world, events)
 
-        # SWITCHING LEVELS AND CHECKING IF ON SCREEN
-        if player.rect.y < 0:
-            player.rect.y += size[1] - 5
-            current_level += 1
-        if player.rect.y > size[1] - 20 and current_level != 1:
-            player.rect.y -= size[1] - 5
-            current_level -= 1
+            # SWITCHING LEVELS AND CHECKING IF ON SCREEN
+            if player.rect.y < 0:
+                player.rect.y += size[1] - 5
+                current_level += 1
+            if player.rect.y > size[1] - 20 and current_level != 1:
+                player.rect.y -= size[1] - 5
+                current_level -= 1
 
         # SHOWING STUFF ON THE SCREEN
         screen.fill((255, 255, 255))
         world.draw()
         screen.blit(current_bg, (0, 0))
-        if player.direction:
-            screen.blit(player.image, (player.rect.x - 15, player.rect.y - 25))
-        else:
-            screen.blit(player.face_left, (player.rect.x - 15, player.rect.y - 25))
+        if not testing:
+            if player.direction:
+                screen.blit(player.image, (player.rect.x - 15, player.rect.y - 25))
+            else:
+                screen.blit(player.face_left, (player.rect.x - 15, player.rect.y - 25))
         pygame.display.update()
 
 
-playing(1)
+playing(14)

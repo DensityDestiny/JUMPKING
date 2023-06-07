@@ -98,6 +98,7 @@ class Player:
             for event in events:
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
+                        self.fallen = False
                         if keys[pygame.K_RIGHT]:
                             self.dx = 6
                         if keys[pygame.K_LEFT]:
