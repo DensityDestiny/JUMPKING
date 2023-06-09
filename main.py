@@ -28,8 +28,19 @@ image11 = Background("11.png")
 image12 = Background("12.png")
 image13 = Background("13.png")
 image14 = Background("14.png")
-# image15 = Background("15.png")
-
+image15 = Background("15.png")
+image16 = Background("16.png")
+image17 = Background("17.png")
+image18 = Background("18.png")
+image19 = Background("19.png")
+image20 = Background("20.png")
+image21 = Background("21.png")
+image22 = Background("22.png")
+image23 = Background("23.png")
+image24 = Background("24.png")
+image25 = Background("41.png")
+image26 = Background("42.png")
+image27 = Background("43.png")
 
 world_information = World_information()
 
@@ -80,7 +91,6 @@ class World:
 
 def playing(current_level):
     play = True
-    testing = input("Are you testing? y for yes if you dont want a character")
     while play:
         fps = 300
         clock = pygame.time.Clock()
@@ -127,59 +137,99 @@ def playing(current_level):
         if current_level == 14:
             world_data = world_information.world14
             current_bg = image14.image
+        if current_level == 15:
+            world_data = world_information.world15
+            current_bg = image15.image
+        if current_level == 16:
+            world_data = world_information.world16
+            current_bg = image16.image
+        if current_level == 17:
+            world_data = world_information.world17
+            current_bg = image17.image
+        if current_level == 18:
+            world_data = world_information.world18
+            current_bg = image18.image
+        if current_level == 19:
+            world_data = world_information.world19
+            current_bg = image19.image
+        if current_level == 20:
+            world_data = world_information.world20
+            current_bg = image20.image
+        if current_level == 21:
+            world_data = world_information.world21
+            current_bg = image21.image
+        if current_level == 22:
+            world_data = world_information.world22
+            current_bg = image22.image
+        if current_level == 23:
+            world_data = world_information.world23
+            current_bg = image23.image
+        if current_level == 24:
+            world_data = world_information.world24
+            current_bg = image24.image
+        if current_level == 25:
+            world_data = world_information.world25
+            current_bg = image25.image
+        if current_level == 26:
+            world_data = world_information.world26
+            current_bg = image26.image
+        if current_level == 27:
+            world_data = world_information.world27
+            current_bg = image27.image
+
         world = World(world_data)
         # DOING THE STUFF IN GAME
         events = pygame.event.get()
-        mouse = pygame.mouse.get_pos()
-        testing_list = world_information.world14
+        # mouse = pygame.mouse.get_pos()
+        # testing_list = world_information.world9
         for event in events:
             if event.type == pygame.QUIT:
-                print(testing_list)
+                # print(testing_list)
                 play = False
         for event in events:
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_q:
                     current_level += 1
-                if event.key == pygame.K_1:
-                    x_pos = mouse[0] // 15
-                    y_pos = mouse[1] // 15
-                    testing_list[y_pos][x_pos] = 1
-                if event.key == pygame.K_2:
-                    x_pos = mouse[0] // 15
-                    y_pos = mouse[1] // 15
-                    testing_list[y_pos][x_pos] = 2
-                if event.key == pygame.K_3:
-                    x_pos = mouse[0] // 15
-                    y_pos = mouse[1] // 15
-                    testing_list[y_pos][x_pos] = 3
-                if event.key == pygame.K_4:
-                    x_pos = mouse[0] // 15
-                    y_pos = mouse[1] // 15
-                    testing_list[y_pos][x_pos] = 0
+                # FOR LEVEL BUILDING NOT FOR PRESENTATION
+                # if event.key == pygame.K_1:
+                #     x_pos = mouse[0] // 15
+                #     y_pos = mouse[1] // 15
+                #     testing_list[y_pos][x_pos] = 1
+                # if event.key == pygame.K_2:
+                #     x_pos = mouse[0] // 15
+                #     y_pos = mouse[1] // 15
+                #     testing_list[y_pos][x_pos] = 2
+                # if event.key == pygame.K_3:
+                #     x_pos = mouse[0] // 15
+                #     y_pos = mouse[1] // 15
+                #     testing_list[y_pos][x_pos] = 3
+                # if event.key == pygame.K_4:
+                #     x_pos = mouse[0] // 15
+                #     y_pos = mouse[1] // 15
+                #     testing_list[y_pos][x_pos] = 0
 
 
         # MOVEMENT
-        if not testing:
-            player.update(world, events)
+        player.update(world, events)
 
-            # SWITCHING LEVELS AND CHECKING IF ON SCREEN
-            if player.rect.y < 0:
-                player.rect.y += size[1] - 5
-                current_level += 1
-            if player.rect.y > size[1] - 20 and current_level != 1:
-                player.rect.y -= size[1] - 5
-                current_level -= 1
+        # SWITCHING LEVELS AND CHECKING IF ON SCREEN
+        if player.rect.y < 0:
+            player.rect.y += size[1] - 1
+            current_level += 1
+        if player.rect.y > size[1] - 20 and current_level != 1:
+            player.rect.y -= size[1] - 1
+            current_level -= 1
 
         # SHOWING STUFF ON THE SCREEN
         screen.fill((255, 255, 255))
         world.draw()
         screen.blit(current_bg, (0, 0))
-        if not testing:
-            if player.direction:
-                screen.blit(player.image, (player.rect.x - 15, player.rect.y - 25))
-            else:
-                screen.blit(player.face_left, (player.rect.x - 15, player.rect.y - 25))
+        if player.direction:
+            screen.blit(player.image, (player.rect.x - 15, player.rect.y - 25))
+        else:
+            screen.blit(player.face_left, (player.rect.x - 15, player.rect.y - 25))
         pygame.display.update()
 
 
-playing(14)
+playing(1)
+
